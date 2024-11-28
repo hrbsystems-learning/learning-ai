@@ -145,5 +145,89 @@ Do you have a specific use case or API in mind that you’d like to integrate wi
 * (https://community.openai.com/t/gpt-actions-compendium-list-of-free-and-open-source-gpt-actions/611847)
 * (https://cookbook.openai.com/examples/chatgpt/gpt_actions_library/gpt_action_github)
 
+Prompt:  
+Frameworks like Flowise allow us to do the actions using tools, I believe through langchain tools component, right?  
+
+Answer:  
+Yes, you're correct! Frameworks like Flowise leverage LangChain's tools component to enable actions and interactions with external APIs and services. This integration allows you to build powerful applications that can perform a variety of tasks by using predefined or custom tools.
+
+How Flowise and LangChain Work Together
+Flowise is a low-code platform that simplifies the process of building applications powered by language models. It provides a visual interface to create and manage workflows, making it easier to integrate various tools and services.
+
+LangChain is a framework that facilitates the development of applications using language models. It provides components for connecting data sources, vector stores, and memory modules with LLMs. LangChain's tools component allows you to define and use tools that the language model can call to perform specific actionshttps://docs.flowiseai.com/integrations/langchain/toolshttps://docs.flowiseai.com/integrations/langchain/tools/custom-tool.
+
+Key Features
+1. Tool Nodes: In Flowise, tools are represented as nodes that can be connected to create workflows. These tools can perform various functions, such as making API calls, processing data, or interacting with other serviceshttps://docs.flowiseai.com/integrations/langchain/tools.
+2. Custom Tools: You can create custom tools in Flowise by defining the necessary API interactions and logic. This allows you to extend the capabilities of your application to meet specific needshttps://docs.flowiseai.com/integrations/langchain/tools/custom-tool.
+3. Integration with LangChain: Flowise uses LangChain's tools component to manage these interactions, providing a seamless way to integrate external APIs and services into your workflowshttps://docs.flowiseai.com/integrations/langchain.
+
+Example Workflow
+Here’s an example of how you might set up a workflow in Flowise using LangChain tools:  
+
+1. Define a Custom Tool:  
+Create a custom tool in Flowise to interact with an external API, such as fetching weather data.
+```yaml  
+openapi: 3.0.0
+info:
+title: Weather API
+version: 1.0.0
+paths:
+/forecast:
+get:
+summary: Get weather forecast
+parameters:
+•  name: location
+
+in: query
+required: true
+schema:
+type: string
+responses:
+'200':
+description: Successful response
+content:
+application/json:
+schema:
+type: object
+properties:
+forecast:
+type: string
+```
+1. Configure the Tool in Flowise:
+Use Flowise's visual interface to add the custom tool to your workflow. Define the input parameters and the expected output.
+```javascript  
+const fetch = require('node-fetch');
+const url = 'https://api.weather.com/forecast?location={location}';
+const options = {
+method: 'GET',
+headers: {
+'X-API-Key': 'your-api-key'
+}
+};
+const response = await fetch(url, options);
+const result = await response.json();
+return result.forecast;
+```
+1. Integrate with LangChain:
+Use LangChain to manage the interaction between the language model and the custom tool. This allows the model to call the tool as needed during the workflow.  
+```python  
+from langchain import DocumentLoader, Retriever, LLMChain
+
+# Initialize LangChain components
+loader = DocumentLoader.from_documents(['weather data'])
+retriever = Retriever.from_documents(loader.load())
+chain = LLMChain.from_retriever(retriever, model_name='llama3.2')
+
+# Example query
+query = "What's the weather like in New York?"
+response = chain.run(query)
+print(response)
+```  
+Benefits
+•  Enhanced Functionality: By integrating tools, you can extend the capabilities of your language model to perform a wide range of tasks.
+•  Flexibility: Custom tools allow you to tailor the application to specific needs and use cases.
+•  Ease of Use: Flowise's visual interface simplifies the process of creating and managing workflows, making it accessible even to those with limited coding   experiencehttps://docs.flowiseai.com/integrations/langchain/toolshttps://docs.flowiseai.com/integrations/langchain/tools/custom-toolhttps://docs.flowiseai.com/integrations/langchain.
+
+Using Flowise and LangChain together provides a powerful and flexible way to build applications that leverage the strengths of language models and external APIs.
 
 
