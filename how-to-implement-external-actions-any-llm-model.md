@@ -615,8 +615,9 @@ Conclusion
 While code generation models are excellent for tasks that require precise and efficient code, chat models offer superior capabilities for dynamic, interactive, and context-rich tasks. Their ability to maintain context, make dynamic decisions, and integrate seamlessly with various tools makes them better suited for workflows that involve multiple tools and evolving requirements.  
 
 Prompt: 
-
-answer:  
+Is there an approach we can use to get the best of both LLM models?  
+  
+answer:    
 Yes, you can combine the strengths of both chat models and code generation models to create a more powerful and versatile system. This hybrid approach leverages the context management and interactivity of chat models along with the precise code generation capabilities of specialized code models. Here’s how you can achieve this:  
 
 Hybrid Approach  
