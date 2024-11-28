@@ -511,6 +511,77 @@ Benefits
 
 This approach allows LangChain to provide a robust framework for managing multiple tools, enabling LLMs to perform a wide range of tasks effectively.
 
+Prompt:  
+What kind of LLM model should we use for that kind of use? (chat models, completion models, code generator models, ...)?  
+Answer:  
+or integrating multiple tools and enabling dynamic interactions with external APIs, the type of LLM model you choose can significantly impact the effectiveness of your solution. Here’s a breakdown of the different types of models and their suitability for this kind of use:  
+
+1. Chat Models  
+•  Best For: Interactive and conversational tasks where maintaining context over multiple turns is crucial.
+•  Examples: OpenAI's ChatGPT, Google's Bard.
+•  Use Case: Ideal for scenarios where the model needs to engage in back-and-forth dialogue, such as customer support or interactive assistants.
+•  Advantages: Maintains context well, handles multi-turn interactions, and can dynamically decide which tools to use based on the conversation flow.
+
+2. Completion Models  
+•  Best For Generating text based on a single prompt without needing to maintain context over multiple interactions.
+•  Examples: OpenAI's GPT-3, GPT-4.  
+•  Use Case: Suitable for tasks that require generating a single, coherent piece of text, such as writing articles, generating reports, or answering specific questions.
+•  Advantages: Excellent at generating detailed and coherent responses to single prompts, but less effective at maintaining context over multiple interactions.
+
+3. Code Generator Models  
+•  Best for Writing and executing code based on natural language prompts.
+•  Examples: OpenAI's Codex, GitHub Copilot.
+•  Use Case: Perfect for tasks that involve generating and executing code, such as automating workflows, performing calculations, or interacting with software systems.
+•  Advantages: Specialized in understanding and generating code, making them ideal for technical tasks that require precise and executable outputs.
+
+Choosing the Right Model
+Use cases involving multiple tools, dynamic decision-making, and potentially executing code, a chat model is often the best choice. Here’s why:  
+•  Context Management: Chat models excel at maintaining context over multiple interactions, which is crucial for deciding which tools to use and in what sequence.
+•  Dynamic Interaction: They can handle dynamic and interactive tasks, making them suitable for workflows that require real-time decision-making.
+•  Flexibility: Chat models can be adapted to various tasks, including generating text, executing code, and interacting with APIs.
+
+Example Setup with a Chat Model  
+Here’s how you might set up a workflow using a chat model in LangChain:  
+
+1. Initialize the Chat Model:
+```python  
+from langchain import LLMChain
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+# Load a chat model and tokenizer
+model_name = "gpt-4-chat"
+model = AutoModelForCausalLM.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+```   
+1. Define and Integrate Tools:
+```python  
+from langchain.tools import Tool
+
+class WeatherTool(Tool):
+def run(self, location):
+# Code to fetch weather data
+pass
+
+class DataProcessorTool(Tool):
+def run(self, data):
+# Code to process data
+pass
+
+# Initialize tools
+weather_tool = WeatherTool()
+data_processor_tool = DataProcessorTool()
+
+# Create a chain with the tools
+chain = LLMChain(model=model, tokenizer=tokenizer, tools=[weather_tool, data_processor_tool])
+```  
+1. Run the Workflow:  
+```python  
+# Example query
+query = "What's the weather like in New York and process the data?"
+response = chain.run(query)
+print(response)
+```
+Using a chat model, you can effectively manage complex workflows that involve multiple tools and dynamic interactions, making your application more robust and versatile.
 
 
 
