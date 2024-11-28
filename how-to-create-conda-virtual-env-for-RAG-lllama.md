@@ -234,7 +234,7 @@ python -m site
 This command will list the directories where Python looks for packages, including the Conda environment's site-packages directory.  
 Example Workflow  
 Here’s a complete example of setting up a Conda environment and installing packages using both Conda and pip:  
-``bash  
+```bash  
 # Create and activate the Conda environment
 conda create -n rag_env python=3.9
 conda activate rag_env
