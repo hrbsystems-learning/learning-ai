@@ -248,3 +248,93 @@ pip install sentence-transformers
 Following these practices, you can safely use pip within a Conda environment without any issues.
 
 
+#new prompt:  
+## rewrite the latest answer considering we  want to use langchain as the main lib to implement our RAG workloads.  
+## Answer:  
+Certainly! Let's set up a Conda virtual environment with all the dependencies needed for running RAG (Retrieval-Augmented Generation) workloads using Llama 3.2 models and the LangChain library.
+Step-by-Step Guide 
+1. Install Conda:  
+If you haven't installed Conda yet, you can download and install it from the official Anaconda website.  
+2. Create a Conda Environment:  
+Open your terminal or command prompt and create a new Conda environment. Let's name it rag_env.
+```bash  
+conda create -n rag_env python=3.9
+```  
+1. Activate the Environment:  
+Activate the newly created environment.  
+```bash   
+conda activate rag_env
+```  
+1. Install Required Packages:  
+Install the necessary packages for RAG workloads. This includes transformers, datasets, faiss-cpu, and langchain.  
+```bash  
+conda install -c conda-forge transformers datasets faiss-cpu
+pip install langchain
+```  
+1. Install Additional Dependencies:  
+You might also need torch and sentence-transformers for embedding and retrieval tasks.  
+```bash  
+conda install -c pytorch pytorch torchvision torchaudio
+pip install sentence-transformers
+```  
+1. Set Up Llama 3.2:
+Ensure you have the Llama 3.2 model files. You can download them from the official repository or use the Ollama CLI to pull the model.  
+```bash  
+ollama pull llama3.2
+```   
+Example Python Script
+Here’s an example script to set up a basic RAG workflow using LangChain:  
+```python  
+import torch
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+from sentence_transformers import SentenceTransformer, util
+from datasets import load_dataset
+from langchain import DocumentLoader, Retriever, LLMChain
+
+# Load Llama 3.2 model and tokenizer
+model_name = "llama3.2"
+model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+# Load a sentence transformer model for embeddings
+embedder = SentenceTransformer('all-MiniLM-L6-v2')
+
+# Load a dataset
+dataset = load_dataset('ag_news', split='train[:1000]')
+
+# Create embeddings for the dataset
+corpus_embeddings = embedder.encode(dataset['text'], convert_to_tensor=True)
+
+# Initialize LangChain components
+loader = DocumentLoader.from_documents(dataset['text'])
+retriever = Retriever.from_documents(loader.load())
+chain = LLMChain.from_retriever(retriever, model_name=model_name)
+
+# Function to perform RAG
+def rag_query(query):
+query_embedding = embedder.encode(query, convert_to_tensor=True)
+hits = util.semantic_search(query_embedding, corpus_embeddings, top_k=5)
+retrieved_docs = [dataset['text'][hit['corpus_id']] for hit in hits[0]]
+
+# Generate response using Llama 3.2
+input_text = query + " " + " ".join(retrieved_docs)
+inputs = tokenizer(input_text, return_tensors='pt')
+outputs = model.generate([**inputs)
+response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+return response
+
+# Example query
+query = "Explain the basics of machine learning."
+response = rag_query(query)
+print(response)
+```  
+Final Steps  
+1. (https://www.bing.com/search?form=SKPBOT&q=inputs%29%0D%0Aresponse%20%3D%20tokenizer.decode%28outputs%5B0%5D%2C%20skip_special_tokens%3DTrue%29%0D%0Areturn%20response%0D%0A%0D%0A%23%20Example%20query%0D%0Aquery%20%3D%20%26quot%3BExplain%20the%20basics%20of%20machine%20learning.%26quot%3B%0D%0Aresponse%20%3D%20rag_query%28query%29%0D%0Aprint%28response%29%0D%0A%60%60%60%0D%0A%0D%0A%23%23%23%20Final%20Steps%0D%0A1.%20)Save the Script[: Save the above script as rag_workflow.py.
+2. (https://www.bing.com/search?form=SKPBOT&q=%3A%20Save%20the%20above%20script%20as%20%60rag_workflow.py%60.%0D%0A2.%20)Run the Script:
+```bash  
+python rag_workflow.py
+```  
+This setup will allow you to run RAG workloads using Llama 3.2 models within a Conda virtual environment, leveraging the LangChain library for efficient and streamlined implementation.  
+
+  
+
