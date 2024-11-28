@@ -364,6 +364,81 @@ When enabling code execution, it’s important to ensure that the environment is
 By leveraging LangChain, you can enable your models to write and execute Python code, significantly enhancing their capabilities and interactivity.
 
 
+Prompt:  
+We can see in the codes you provided in the latest answer, the models can execute any command line in the server it is running. So it is possible to run code written in any programming language such as Colang, right?  
+
+Answer:  
+Yes, you're correct! By using a tool that executes command-line instructions, you can indeed run code written in any programming language, including Go (often referred to as Golang), as long as the necessary compilers or interpreters are installed on the server.
+
+Example Workflow for Running Go Code  
+Here’s an example of how you can extend the previous setup to run Go code:  
+
+1. Ensure Go is Installed:  
+Make sure the Go compiler is installed on your server. You can check this by running:  
+```bash  
+go version
+```  
+If Go is not installed, you can download and install it from the official Go website.
+
+2. Modify the Python Executor Tool:  
+Update the tool to handle Go code execution.  
+```python  
+from langchain.tools import Tool
+import subprocess
+
+class CodeExecutor(Tool):
+def run(self, code, language='python'):
+try:
+if language == 'python':
+result = subprocess.run(['python', '-c', code], capture_output=True, text=True)
+elif language == 'go':
+with open('temp.go', 'w') as f:
+f.write(code)
+result = subprocess.run(['go', 'run', 'temp.go'], capture_output=True, text=True)
+else:
+return f"Unsupported language: {language}"
+
+return result.stdout if result.returncode == 0 else result.stderr
+except Exception as e:
+return str(e)
+```  
+3. Integrate the Tool with LangChain:  
+Use LangChain to manage the interaction between the language model and the code execution tool.  
+```python  
+from langchain import LLMChain
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+
+# Load Llama 3.2 model and tokenizer
+model_name = "llama3.2"
+model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+# Initialize the code executor tool
+code_executor = CodeExecutor()
+
+# Create a chain with the tool
+chain = LLMChain(model=model, tokenizer=tokenizer, tools=[code_executor])
+
+# Example query to generate Go code
+query = "Write a Go function to calculate the factorial of a number."
+code = chain.run(query)
+print("Generated Code:\n", code)
+
+# Execute the generated Go code
+execution_result = code_executor.run(code, language='go')
+print("Execution Result:\n", execution_result)
+```  
+Benefits  
+•  Language Flexibility: This setup allows you to execute code in multiple programming languages, not just Python.
+•  Dynamic Computation: Enables the model to perform a wide range of tasks by generating and executing code in different languages.
+•  Interactivity: Enhances the interactivity of applications by allowing the model to respond with executable code in various languages.  
+
+Safety Considerations  
+As with executing any code, it’s important to ensure that the environment is secure and that the code is executed in a controlled manner to prevent any harmful actions. This can be achieved by:  
+•  Sandboxing: Running the code in a sandboxed environment to isolate it from the main system.
+•  Validation: Validating the generated code to ensure it does not perform any unsafe operations.  
+  
+By leveraging LangChain and a flexible code execution tool, you can enable your models to write and execute code in various programming languages, significantly enhancing their capabilities and interactivity.
 
 
 
