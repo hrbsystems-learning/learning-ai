@@ -291,9 +291,79 @@ Benefits
 
 LangChain effectively democratizes the ability to perform external actions, making it possible for any LLM to interact with the external world in a similar way to OpenAI Actions.
 
+Using Flowise and LangChain together provides a powerful and flexible way to build applications that leverage the strengths of language models and external APIs.  
+
+Prompt:  
+Via langchain an LLM model is capable to execute a Python code that itself wrote?  
+
+Answer:  
+Yes, via LangChain, a model can indeed write and execute Python code. This capability is particularly useful for tasks that require dynamic computation or interaction with the environment. Here’s how it works:  
+
+How It Works  
+1. Code Generation: The language model generates Python code based on the input prompt.
+2. Code Execution: The generated code is then executed in a safe and controlled environment.
+3. Result Handling: The results of the code execution are captured and returned to the model or user.
+
+Example Workflow  
+Here’s an example of how you can set up a workflow using LangChain to enable a model to write and execute Python code:  
+
+1. Install Required Packages:
+Ensure you have LangChain and other necessary packages installed
+```bash  
+pip install langchain
+```  
+2. Define the Code Execution Tool:  
+Create a tool in LangChain that can execute Python code.  
+```python  
+from langchain.tools import Tool
+import subprocess
+
+class PythonExecutor(Tool):
+def run(self, code):
+try:
+result = subprocess.run(['python', '-c', code], capture_output=True, text=True)
+return result.stdout if result.returncode == 0 else result.stderr
+except Exception as e:
+return str(e)
+```  
+3. Integrate the Tool with LangChain:  
+Use LangChain to manage the interaction between the language model and the code execution tool.  
+```python  
+from langchain import LLMChain
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+
+# Load Llama 3.2 model and tokenizer
+model_name = "llama3.2"
+model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+# Initialize the Python executor tool
+python_executor = PythonExecutor()
+
+# Create a chain with the tool
+chain = LLMChain(model=model, tokenizer=tokenizer, tools=[python_executor])
+
+# Example query
+query = "Write a Python function to calculate the factorial of a number."
+code = chain.run(query)
+print("Generated Code:\n", code)
+
+# Execute the generated code
+execution_result = python_executor.run(code)
+print("Execution Result:\n", execution_result)
+```  
+Benefits
+•  Dynamic Computation: Allows the model to perform computations and tasks that require real-time code execution.
+•  Flexibility: Can handle a wide range of tasks by generating and executing custom code.
+•  Interactivity: Enhances the interactivity of applications by allowing the model to respond with executable code.  
+
+Safety Considerations  
+When enabling code execution, it’s important to ensure that the environment is secure and that the code is executed in a controlled manner to prevent any harmful actions. This can be achieved by:
+•  Sandboxing: Running the code in a sandboxed environment to isolate it from the main system.
+•  Validation: Validating the generated code to ensure it does not perform any unsafe operations.  
+By leveraging LangChain, you can enable your models to write and execute Python code, significantly enhancing their capabilities and interactivity.
 
 
 
-Using Flowise and LangChain together provides a powerful and flexible way to build applications that leverage the strengths of language models and external APIs.
 
 
