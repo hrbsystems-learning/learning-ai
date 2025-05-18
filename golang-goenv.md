@@ -217,5 +217,65 @@ So, just run `goenv versions` to see your installed list!
 
 ---  
 
+Prompt:  
+How do I change the Go version in the terminal instance? like SDK or nvm  use command?  
+
+Answer:  
+Okay, you're looking for the equivalent of `nvm use` or `sdk use` in `goenv`, which changes the Go version *specifically for your current terminal session*.
+
+The command for this in `goenv` is:
+
+```bash
+goenv shell <version_number>
+```
+
+**How it Works:**
+
+*   The `goenv shell` command works by setting a special environment variable (`GOENV_VERSION`) in your current shell session.
+*   When `goenv` is initialized (via `eval "$(goenv init -)"`), it checks for this environment variable *first*, before looking for local `.go-version` files or the global `~/.goenv/version` file.
+*   This makes the version set by `goenv shell` have the highest precedence.
+
+**Steps to Change Go Version for the Current Terminal:**
+
+1.  **Open your terminal.** (Make sure `goenv` is sourced correctly in your shell config).
+2.  **List your installed versions** (optional, but good to know which ones are available):
+    ```bash
+    goenv versions
+    ```
+    You'll see a list like:
+    ```
+      1.20.10
+    * 1.21.5 (set by /home/yourusername/.goenv/version) # (or .go-version, or GOENV_VERSION)
+      1.22.0
+    ```
+3.  **Use `goenv shell` with the desired version number:**
+    Let's say you want to switch to Go 1.20.10 for this session.
+    ```bash
+    goenv shell 1.20.10
+    ```
+4.  **Verify the change:**
+    ```bash
+    goenv version
+    # Output should now show: 1.20.10 (set by GOENV_VERSION env var)
+
+    go version
+    # Output should now show the details for Go 1.20.10
+    ```
+
+**Important Note:**
+
+The version set by `goenv shell` **only applies to the terminal session in which you ran the command**.
+
+*   If you open a new terminal window or tab, it will revert to whatever your `goenv global` setting is, or the `goenv local` setting if you are in a project directory with a `.go-version` file.
+*   If you want to set the version for a specific project directory permanently, use `goenv local <version_number>` inside that directory (this creates a `.go-version` file).
+*   If you want to set the default version for all new shells and directories without a local setting, use `goenv global <version_number>`.
+
+So, `goenv shell` is perfect for quick, temporary switches within your current working session, much like `nvm use`.
+
+
+---  
+
+
+
 
 
