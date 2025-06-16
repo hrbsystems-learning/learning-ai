@@ -1,0 +1,16 @@
+# .gitignore
+
+# Python artifacts
+__pycache__/
+*.pyc
+
+# Environment secrets - VERY IMPORTANT
+.env
+
+# IDE and editor files
+.vscode/
+.idea/
+
+# Prefect local database
+prefect.db
+*.db-journal

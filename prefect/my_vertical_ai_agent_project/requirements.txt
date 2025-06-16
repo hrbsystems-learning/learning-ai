@@ -1,0 +1,21 @@
+# requirements.txt
+# CORRECTED: A stable, modern stack compatible with Python 3.12 and LangChain v0.2+
+
+# --- Core Orchestration & Agent Frameworks ---
+prefect~=3.4.7.dev2
+# UPGRADED: Using a newer crewai version that is compatible with langchain v0.2
+crewai~=0.130.0
+# crewai-tools~=0.3.0
+crewai-tools
+
+# --- LangChain v0.2+ & Integrations ---
+# These versions are now compatible with the upgraded crewai
+langchain~=0.2.5
+langchain-core~=0.2.10
+langchain-community~=0.2.5
+langchain-openai~=0.1.9
+
+# --- Data & Utilities ---
+numpy~=1.26.4
+pandas~=2.2.1
+python-dotenv~=1.0.1
