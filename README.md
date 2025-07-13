@@ -5,7 +5,7 @@ Aggregate key information about AI (Prompt-Engineering, ....
 ---  
 
 ## Prompt:  
-when we use conda venv, we can use the others pagake manager commands such as npm, npx, xnpm, yarn, uv, etc.?
+when we use conda venv, we can use the others package manager commands such as npm, npx, xnpm, yarn, uv, etc.?
 
 ## Answer:  
 
