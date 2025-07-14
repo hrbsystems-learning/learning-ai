@@ -1,4 +1,4 @@
-## PRompt:  
+## Prompt:  
 As an expert in Prefect using langchain, crewai compounding a Mult-ai Agent tech stack, decribe how to create a local enivironment using conda allowing using all the stack listed above for writing my Vetical IA agents as Prefect flows
 
 ## Answer:  
