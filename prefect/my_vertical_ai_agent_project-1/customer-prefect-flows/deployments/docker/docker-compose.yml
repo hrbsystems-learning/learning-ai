@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  # Prefect Worker
+  prefect-worker:
+    build:
+      context: ../..
+      dockerfile: deployments/docker/Dockerfile
+    container_name: customer-flows-worker
+    environment:
+      - PREFECT_API_URL=${PREFECT_API_URL:-http://prefect-server:4200/api}
+      - PREFECT_API_KEY=${PREFECT_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY}
+      - LANGCHAIN_PROJECT=${LANGCHAIN_PROJECT:-customer-flows}
+      - LANGCHAIN_TRACING_V2=${LANGCHAIN_TRACING_V2:-false}
+      - ENVIRONMENT=${ENVIRONMENT:-development}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      - ./storage:/app/storage
+      - ./logs:/app/logs
+    restart: unless-stopped
+    depends_on:
+      - prefect-server
+    networks:
+      - prefect-network
+    command: ["python", "-m", "prefect", "worker", "start", "--pool", "default"]
+
+  # Prefect Server (for local development)
+  prefect-server:
+    image: prefecthq/prefect:3-latest
+    container_name: prefect-server
+    environment:
+      - PREFECT_UI_URL=http://localhost:4200
+      - PREFECT_API_URL=http://localhost:4200/api
+      - PREFECT_SERVER_API_HOST=0.0.0.0
+      - PREFECT_SERVER_API_PORT=4200
+      - PREFECT_UI_API_URL=http://localhost:4200/api
+    ports:
+      - "4200:4200"
+    volumes:
+      - prefect-data:/root/.prefect
+    restart: unless-stopped
+    networks:
+      - prefect-network
+    command: ["prefect", "server", "start", "--host", "0.0.0.0"]
+
+  # PostgreSQL database for Prefect (optional - Prefect 3 can use SQLite)
+  postgres:
+    image: postgres:15
+    container_name: prefect-postgres
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-prefect}
+      - POSTGRES_USER=${POSTGRES_USER:-prefect}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-prefect}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - prefect-network
+    ports:
+      - "5432:5432"
+
+  # Redis for caching and task results (optional)
+  redis:
+    image: redis:7-alpine
+    container_name: prefect-redis
+    restart: unless-stopped
+    networks:
+      - prefect-network
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  # Flow execution environment
+  flow-runner:
+    build:
+      context: ../..
+      dockerfile: deployments/docker/Dockerfile
+    container_name: customer-flows-runner
+    environment:
+      - PREFECT_API_URL=${PREFECT_API_URL:-http://prefect-server:4200/api}
+      - PREFECT_API_KEY=${PREFECT_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY}
+      - LANGCHAIN_PROJECT=${LANGCHAIN_PROJECT:-customer-flows}
+      - LANGCHAIN_TRACING_V2=${LANGCHAIN_TRACING_V2:-false}
+      - ENVIRONMENT=${ENVIRONMENT:-development}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      - ./storage:/app/storage
+      - ./logs:/app/logs
+      - ../../src:/app/src  # Mount source code for development
+    depends_on:
+      - prefect-server
+    networks:
+      - prefect-network
+    profiles:
+      - dev  # Only start in development profile
+    command: ["tail", "-f", "/dev/null"]  # Keep container running for development
+
+volumes:
+  prefect-data:
+  postgres-data:
+  redis-data:
+
+networks:
+  prefect-network:
+    driver: bridge
