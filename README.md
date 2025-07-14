@@ -3,7 +3,7 @@ Aggregate key information about AI (Prompt-Engineering, ....
 
 
 ---  
-
+## Tech-info about dependence management using conda as pivot for python venvs 
 ## Prompt:  
 when we use conda venv, we can use the others package manager commands such as npm, npx, xnpm, yarn, uv, etc.?
 
