@@ -136,5 +136,10 @@ If you want to prevent Ollama from running at boot, you must explicitly disable 
 sudo systemctl disable ollama
 ```  
 
+How to Manage the Service Manually.
+Once disabled, you control exactly when the server runs using these commands:  
+Start the server manually: sudo systemctl start ollama  
+Stop the server manually: sudo systemctl stop ollama  
+Check if it is running: sudo systemctl status ollama
 
 
