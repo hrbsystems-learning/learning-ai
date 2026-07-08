@@ -121,5 +121,6 @@ Linux: Permanently disable the boot service by running:
 sudo systemctl disable ollama
 ```  
 
-
+Pro-Tip: Run it strictly on-demand  
+If you disable the auto-start, you can run the server only when you need it by opening your terminal and typing ollama serve. When you are finished, simply press Ctrl + C in that terminal window to shut down the server completely.
 
