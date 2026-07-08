@@ -112,3 +112,14 @@ Systemd: Stop the native background service with:
 sudo systemctl stop ollama
 ```  
 
+How to Prevent Ollama From Starting Automatically:  
+If you do not want Ollama to hoard system resources on boot, you can block its auto-start behavior: 
+Windows: Open Task Manager (Ctrl + Shift + Esc), click the Startup apps tab, find Ollama, and click Disable.
+macOS: Go to System Settings > General > Login Items. Under the Allow in the Background section, find Ollama and switch the toggle to Off.  
+Linux: Permanently disable the boot service by running:  
+```bash
+sudo systemctl disable ollama
+```  
+
+
+
