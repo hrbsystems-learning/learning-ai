@@ -1,0 +1,119 @@
+# Claude Code Session Archive
+
+**Date:** July 8, 2026
+**Topics Covered:** Claude Code vs. Plugins, Terminal-Native AI Alternatives, Hybrid Local/Online Workflows.
+
+---
+
+## Topic 1: Skills vs. Plugins in Claude Code
+
+### Question
+What is the difference from a skill and plugin in claude code?
+
+### Answer
+In **Claude Code**, a **Skill** is a single, specific playbook or instruction set that teaches Claude how to do one task, while a **Plugin** is an installable package that bundles multiple skills, slash commands, hooks, and external tools (MCPs) together. 
+
+Here is how to think about them:
+* **Skill (The Recipe):** A Markdown file (`SKILL.md`) that gives Claude step-by-step instructions on how to handle a specific domain, project, or repeatable workflow. Claude loads them "on-demand" (using very few tokens) and checks them when needed.
+* **Plugin (The Cookbook):** A container or repository that bundles several skills, hooks (automated scripts), and Model Context Protocol (MCP) servers into one unified package so you can easily install and share them with your team.
+
+A common analogy used in the Claude community is that a **Skill** is an individual recipe (e.g., how to format a client email or deploy a specific branch), whereas a **Plugin** is the entire cookbook that bundles that skill with others (e.g., a "Frontend Developer" plugin containing UI design skills, code linting, and API tools).
+
+---
+
+## Topic 2: Claude Code Alternatives
+
+### Question
+What are the best alternatives to Claude Code Superpowers?
+
+### Answer
+The best alternatives to Claude Code’s terminal-native, multi-agent capabilities depend entirely on whether you want a **terminal-first agent**, an **open-source system to avoid vendor lock-in**, or a **visual IDE workflow**.
+
+#### Terminal-Native & Open-Source Rivals (Closest to Claude Code)
+* **OpenCode**: The leading open-source, terminal-native alternative to Claude Code. It is MIT-licensed and allows you to bypass Anthropic vendor lock-in by supporting over 75 model providers (including DeepSeek, Qwen, and OpenAI).
+* **Aider**: A highly mature, terminal-first Git-native pair programming tool. Like Claude Code, it edits files directly and auto-commits changes. Its superpower is model agnosticism—allowing you to switch to local models via Ollama to slash your API costs.
+* **OpenAI Codex CLI**: OpenAI's open-source terminal agent released to directly rival Claude Code. It handles agentic execution via specific rules, subagents, and an isolated sandboxing model.
+* **Kilo CLI / Kilo Code**: An excellent option if you want a terminal coding agent that safely connects your command-line workflow to IDEs, team code reviews, and remote Model Context Protocol (MCP) servers.
+
+#### Free & High-Limit Alternatives
+* **Gemini CLI**: Google's direct terminal-first response to Claude Code. It provides a generous free tier of **1,000 requests per day** and leverages a massive 2-million token context window.
+
+#### Visual IDE & Editor-Native Alternatives
+* **Cursor (Composer Mode)**: The best choice if you prefer a visual editor over the command line. Its "Composer" agent mode handles multi-file refactoring tasks from a single prompt and lets you easily switch between Claude Sonnet, GPT-5, and Gemini on the fly.
+* **Cline**: A powerful, open-source VS Code extension that brings Claude Code’s capabilities into your editor. It supports full Model Context Protocol (MCP) integrations, tracks exact token costs, and uses a strict human-in-the-loop "Plan/Act" system.
+* **Windsurf (Cascade Mode)**: An AI-native IDE offering autonomous multi-file edits through its Cascade mode. It includes a highly capable free tier with full codebase indexing.
+
+#### Multi-Agent Frameworks for Teams
+* **Verdent**: Runs multiple specialized agents in **true parallel** using isolated Git worktrees. A frontend agent and backend agent can work concurrently without workspace conflicts.
+* **OpenHands**: An highly autonomous, open-source agent engine that runs inside a secure Docker container, making it completely safe from accidental or dangerous file-system commands.
+
+---
+
+## Topic 3: Hybrid Local/Online CLI Architecture
+
+### Question
+O prever CLI approaches. I want to mix the local offline models with API-Keys online communications with remote models
+
+### Answer
+**Aider** and **OpenCode** are the absolute best CLI choices for this exact workflow. They use internal routing architectures (built on top of packages like LiteLLM) that let you seamlessly switch between local instances and cloud APIs within the same project workspace.
+
+This setup maximizes your **privacy and token-cost savings** by using a local model for minor tasks (like explaining code, writing tests, or autocomplete) while preserving your cloud API budgets for complex multi-file orchestration.
+
+### Method 1: The Aider Setup (Recommended)
+Aider is a Git-native terminal assistant. You can feed it local endpoints and online API keys at the same time, switching models via simple terminal flags or a configuration file.
+
+#### 1. Start Your Local Model Server
+Install and launch Ollama (or LM Studio). Pull a specialized local coding model:
+```bash
+ollama run qwen2.5-coder:7b
+```
+*(Leave this running in the background; it exposes a local OpenAI-compatible endpoint at `http://localhost:11434/v1`).*
+
+#### 2. Configure Your Environment Keys
+In your terminal configuration file (`~/.bashrc` or `~/.zshrc`) or a `.env` file inside your code repository, mix your offline and online variables:
+```bash
+# Local Offline Configuration
+export OLLAMA_API_BASE=http://localhost:11434/v1
+
+# Online Remote API Configurations
+export ANTHROPIC_API_KEY="your-anthropic-key"
+export OPENAI_API_KEY="your-openai-key"
+```
+
+#### 3. Launch Aider (Mix and Match)
+When starting your CLI session, decide which model handles the main codebase task:
+
+* **To save money using your Local Model:**
+  ```bash
+  aider --model ollama/qwen2.5-coder:7b
+  ```
+* **To switch to a Remote Online Powerhouse (e.g., Claude 3.7 Sonnet):**
+  ```bash
+  aider --model sonnet
+  ```
+
+### Method 2: The OpenCode Setup (Zero-Lock-In)
+If you want a modern, multi-agent CLI explicitly built to escape Anthropic/Claude Code ecosystem limitations, OpenCode natively supports a hybrid ecosystem.
+
+1. Install via NPM or Homebrew.
+2. Run its configuration command:
+   ```bash
+   opencode config
+   ```
+3. The interactive prompt will ask you to map out your architecture. You can input `http://localhost:11434` for local tasks and paste your online API keys for fallback or heavy agent reasoning.
+
+### Method 3: The OpenRouter Bridge (Single Token Route)
+If you want to access remote models without holding multiple vendor accounts (Anthropic, OpenAI, DeepSeek, etc.) alongside your local models, use OpenRouter.
+
+1. Export your OpenRouter key and point Aider to it:
+   ```bash
+   export OPENROUTER_API_KEY="your_openrouter_key"
+   ```
+2. Call local or remote targets cleanly from your terminal string:
+   ```bash
+   # Run cloud models via OpenRouter
+   aider --model openrouter/anthropic/claude-3.7-sonnet
+   
+   # Run your offline instance
+   aider --model ollama/qwen2.5-coder:7b
+   ```
