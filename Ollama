@@ -122,5 +122,19 @@ sudo systemctl disable ollama
 ```  
 
 Pro-Tip: Run it strictly on-demand  
-If you disable the auto-start, you can run the server only when you need it by opening your terminal and typing ollama serve. When you are finished, simply press Ctrl + C in that terminal window to shut down the server completely.
+If you disable the auto-start, 
+You can run the server only when you need it by opening your terminal and typing ollama serve. When you are finished,  
+simply press Ctrl + C in that terminal window to shut down the server completely.  
+
+> When I run a local model for the first time in Linux, will it restart automatically on the next boot?  
+Yes, on Linux, it will automatically restart on the next boot by default. 
+When you install Ollama via the official Linux install script, it automatically registers and enables a systemd background service.  
+This service is configured to launch the server immediately when your computer boots up, regardless of whether you have run a model yet.  
+How to Stop it From Auto-Starting:  
+If you want to prevent Ollama from running at boot, you must explicitly disable the system service. Open your terminal and run:  
+```bash
+sudo systemctl disable ollama
+```  
+
+
 
