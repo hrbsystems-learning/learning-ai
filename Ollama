@@ -94,4 +94,21 @@ Command Line (PowerShell): Force kill all instances instantly by running:
 ```powershell
 Stop-Process -Name "ollama*" -Force
 ```  
+macOScMenu Bar: Click the Ollama icon in the top menu bar and select Quit Ollama.  
+Terminal: Force quit the process using:  
+```bash
+pkill ollama
+```  
+
+Homebrew (If installed via brew): Stop the background service by running:  
+```bash  
+brew services stop ollama
+```  
+
+Linux:
+
+Systemd: Stop the native background service with:  
+```bash  
+sudo systemctl stop ollama
+```  
 
