@@ -14,3 +14,23 @@ OpenSpec changes the loop by introducing Spec-Driven Development (SDD). It struc
        ▲                                            │
        └─────────────────── Iterate ────────────────┘
 
+Instead of looping blindly on code, the AI loops on intent first, and then tightly loops on execution:
+
+The "Explore/Propose" Loop: You run /opsx:propose. The AI loops through your existing code and specs, asks probing questions, and refines a Markdown document until you both agree on what to build.
+
+The "Apply" Loop: When you run /opsx:apply, the agent is locked into a highly structured, execution-focused loop. It reads tasks.MD executes a task, checks it off, runs a test or a validation compiler, handles the error if it fails, and moves to the next task.
+
+Because OpenSpec forces the AI to write down its plan (tasks.md, design.md) on your local disk, the context persists. If Claude Code crashes or hits a token limit mid-loop, you don't lose progress. You just start a new session, and the agent reads the filesystem to pick up exactly where the loop left off.
+
+2. Do You Need to Configure Anything?  
+No heavy configuration is needed. OpenSpec is designed to be a lightweight, tool-agnostic layer that sits natively on top of your existing AI CLIs and IDEs.  
+When you initialize OpenSpec in your repository, it automatically hooks into your environment:
+
+```bash
+# 1. Install globally
+npm install -g @fission-ai/openspec@latest
+
+# 2. Initialize in your project root
+cd your-project
+openspec init
+``` 
