@@ -34,3 +34,33 @@ npm install -g @fission-ai/openspec@latest
 cd your-project
 openspec init
 ``` 
+Running openspec init sets up the /openspec or @openspec structures and registers the native slash commands (or "skills") that your AI tools recognize.  
+How it seamlessly fits into your current tools: Claude Code: It integrates natively via slash commands.  
+When you are inside Claude Code, you can type /opsx:propose or /opsx:apply directly. 
+Claude reads the filesystem artifacts as its ground truth.  
+Cursor / Windsurf: It utilizes your .cursorrules or workspace settings. The AI agent reads the active OpenSpec directories to understand the codebase context automatically.  
+
+Pro Tip for Loop Engineering: OpenSpec relies on your project's "Constitution". After running openspec init, open openspec/project.md and explicitly define your tech stack, testing framework, and linting rules. 
+When the AI goes into its execution loop, it will use those boundaries to validate its own code, preventing the loop from breaking.  
+
+> Does the openspec init already add some content to claude.md or agents.md to keep the CLI app always in openspec behavior?   
+
+Yes, openspec init absolutely creates and injects these behavior files automatically.  
+You do not need to manually copy-paste rules to force your CLI tools to follow OpenSpec.  
+The initialization process explicitly generates configuration files designed to hook directly into the AI's system prompt so that it remains strictly bound to the OpenSpec workflow.  
+1. What OpenSpec Injects into Your Project When you run openspec init, the tool automatically detects which CLI apps you are using (e.g., Claude Code, Cursor, Windsurf) and creates the exact files they look for when establishing context:📄 openspec/AGENTS.md (and root AGENTS.md)OpenSpec writes a highly optimized instruction set into an AGENTS.md file. In the modern AI ecosystem, AGENTS.md is the universal ecosystem standard (stewarded by the Agentic AI Foundation) that all major coding agents look for.  
+The Behavior Constraint: This file contains strict directives telling any agent that enters the repository:  
+"You are an OpenSpec agent. Do not write or implement code blindly. You must always read the active changes/ directory, update tasks.md, and validate via the openspec CLI before declaring a task complete."  
+
+📄 CLAUDE.md (for Claude Code)  
+If you select Claude Code during openspec init (or pass --tools claude), it will create or modify a CLAUDE.md file in your root or under .claude/.  
+The Behavior Constraint: Claude Code natively reads CLAUDE.md at the start of every single session.  
+OpenSpec configures this file to outline build/test commands, but crucially, it instructs Claude to strictly execute within the /opsx protocol.2.  
+It Injects Native "Slash Commands" (Skills)  
+For advanced CLIs like Claude Code, OpenSpec doesn't just rely on text instructions—it actually injects custom tools/skills into the agent's environment.  
+During initialization, it writes custom execution schemas to:.claude/skills/openspec-proposal/.claude/skills/openspec-apply/.claude/skills/openspec-archive/Because these are registered as native skills, Claude Code physically loads them into its brain as structural capabilities. If Claude tries to stray from the path, its own system instructions force it to look at these tools. This is why you can simply type /opsx:propose or /opsx:apply inside Claude Code, and it immediately shifts into its deterministic, step-by-step looping behavior without further prompting.  
+
+
+
+
+
