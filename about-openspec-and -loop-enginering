@@ -60,6 +60,10 @@ It Injects Native "Slash Commands" (Skills)
 For advanced CLIs like Claude Code, OpenSpec doesn't just rely on text instructions—it actually injects custom tools/skills into the agent's environment.  
 During initialization, it writes custom execution schemas to:.claude/skills/openspec-proposal/.claude/skills/openspec-apply/.claude/skills/openspec-archive/Because these are registered as native skills, Claude Code physically loads them into its brain as structural capabilities. If Claude tries to stray from the path, its own system instructions force it to look at these tools. This is why you can simply type /opsx:propose or /opsx:apply inside Claude Code, and it immediately shifts into its deterministic, step-by-step looping behavior without further prompting.  
 
+> If I already have a Claude.md file. The openspec init will damage it. Or only modify it by adding OpenSpec behavior content?  
+
+
+
 
 
 
