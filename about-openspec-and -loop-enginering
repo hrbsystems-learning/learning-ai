@@ -1,0 +1,16 @@
+As an expert in AI CLIs such as Claude Code, Agy, amp etc., nowadays, loop engineer is a high-profile subject. When I use OpenSpec as my main way to build and debug software. The loop approach is already considered in Openspec way build software? Or is it necessary to configure something to make both work together?   
+
+Yes, the "loop" approach is natively baked right into OpenSpec’s core design.  
+You do not need to configure anything extra or hack the system to make them work together.  
+In fact, OpenSpec was specifically created to fix the biggest problem of the AI "loop" (often called agentic or loop engineering)—agent amnesia and downstream hallucinations.  
+Here is exactly how OpenSpec handles the loop natively and how it integrates with your favorite CLI tools like Claude Code.  
+
+1. How OpenSpec Implements the "Loop" Natively. In traditional agentic development, the loop looks like this:  
+Prompt → Code → Error/Test Fail → Fix → Repeat. 
+The issue is that if the loop runs for too long, the AI forgets the original goal, goes off on tangents, or creates messy, circular bug-fixing loops.  
+OpenSpec changes the loop by introducing Spec-Driven Development (SDD). It structures the loop into a deterministic cycle using its OPSX workflow:  
+
+[Propose/Explore] ──> [Design & Tasks] ──> [Apply (The Code Loop)] ──> [Archive]
+       ▲                                            │
+       └─────────────────── Iterate ────────────────┘
+
