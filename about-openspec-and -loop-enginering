@@ -80,7 +80,18 @@ Here is exactly how OpenSpec handles your existing CLAUDE.md:
 
 
 
+> Is it a good practice already to have a previous claude.md file with good system instructions? O it is reliable left to the openscpec build the complete claude.md or Agents.md  
+
+It is actually best practice to use a hybrid approach. Do not throw away your custom instructions, but do let OpenSpec handle the protocol generation.
+
+Think of it as a division of labor: your existing instructions tell Claude how to write your specific code, while OpenSpec tells Claude how to manage its own memory loop.
+
+Here is why keeping both is the most reliable strategy and how to organize them cleanly.  
 
 
+The Division of Labor:
+Instruction_Type       Who Should Write It?       Examples
+
+Domain & Style Rules   You (Your existing file)   "Always use strict TypeScript," "Never use external UI libraries," "Our database uses UUIDs, not auto-increment integers."
 
 
