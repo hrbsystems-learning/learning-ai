@@ -90,8 +90,15 @@ Here is why keeping both is the most reliable strategy and how to organize them 
 
 
 The Division of Labor:
-Instruction_Type       Who Should Write It?       Examples
+Instruction_Type            Who Should Write It?       Examples
 
-Domain & Style Rules   You (Your existing file)   "Always use strict TypeScript," "Never use external UI libraries," "Our database uses UUIDs, not auto-increment integers."
+Domain & Style Rules        You (Your existing file)   "Always use strict TypeScript," "Never use external UI libraries," "Our database uses UUIDs, not auto-increment integers."
+
+Workflow & Loop Protocol	OpenSpec (openspec init)	How to invoke /opsx:apply, how to structure the tasks.md file, how to handle context-window truncation.
+
+
+If you delete your custom CLAUDE.md, OpenSpec will generate a perfectly optimized workflow file, but Claude might lose its grasp on your personal coding preferences, architectural boundaries, or business logic quirks.  
+
+
 
 
