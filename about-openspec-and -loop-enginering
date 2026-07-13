@@ -66,7 +66,18 @@ Your existing CLAUDE.md file will not be damaged or overwritten.
 OpenSpec is built with preservation in mind.  
 When you run openspec init, it evaluates any existing configuration files in your project root and processes them safely using a marker-based system.  
 Here is exactly how OpenSpec handles your existing CLAUDE.md:  
-1. It uses OpenSpec Marker Blocks.  Instead of replacing your file, OpenSpec finds or injects a specific block of text bounded by system comments (markers). Everything outside of those markers—such as your custom build instructions, environment notes, or testing habits—remains completely untouched.  Only the content inside the markers is updated to point Claude to the active OpenSpec skills and slash commands.  
+1. It uses OpenSpec Marker Blocks:
+   * Instead of replacing your file, OpenSpec finds or injects a specific block of text bounded by system comments (markers). Everything outside of those markers—such as your custom build instructions, environment notes, or testing habits—remains completely untouched.  
+   * Only the content inside the markers is updated to point Claude to the active OpenSpec skills and slash commands.  
+
+2. How OpenSpec Manages Claude Code Today
+   In the latest updates to OpenSpec, the tool has shifted away from dumping massive text blocks into CLAUDE.md. Instead, it leverages Agent Skills (the standard capability system for Claude Code).  
+   When you run openspec init:  
+   * It injects native skill sets directly into .claude/skills/openspec-*/ so Claude physically inherits the behavior as system tools.  
+   * It safely checks your root CLAUDE.md to ensure nothing conflicts, keeping your personal setup fully intact.  
+⚠️ One Exception: If you intentionally use the --force flag (openspec init --force), it will automatically overwrite or clean up legacy configuration blocks without prompting you. If you run the standard openspec init, it will interactively guide you if it encounters anything unexpected.  
+
+
 
 
 
