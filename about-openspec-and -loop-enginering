@@ -309,4 +309,8 @@ Step 1: Explore & Onboard (First-time run)Before coding in a brownfield reposito
 ```plaintext
 /opsx:explore "Analyze our current HTTP routes and show how we should handle incoming webhooks"  
 ```  
+The AI agent will map your existing files, identify your endpoints, and present options to you.  
 
+Step 2: Propose the Change when you are ready to write a new feature (such as a new POST endpoint for handling requests), initiate a structured proposal:  
+   * What OpenSpec does: It creates a dedicated folder in openspec/changes/<timestamp>_add_stripe_webhooks/ containing proposal.md, design.md, and a strict tasks.md checklist.
+   * No code is written yet. You review the Markdown files. If they look perfect, you proceed.
