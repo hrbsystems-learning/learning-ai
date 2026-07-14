@@ -100,5 +100,22 @@ Workflow & Loop Protocol	OpenSpec (openspec init)	How to invoke /opsx:apply, how
 If you delete your custom CLAUDE.md, OpenSpec will generate a perfectly optimized workflow file, but Claude might lose its grasp on your personal coding preferences, architectural boundaries, or business logic quirks.  
 
 
+The Most Reliable Setup Practice
+To get the absolute best results out of Claude Code with OpenSpec, follow this three-step checklist:  
+
+1.  Back up your current file
+Before running the initialization, quickly copy your custom rules to a safe place (or rely on Git):
+```bash
+cp CLAUDE.md CLAUDE.bak.md
+```  
+2. Run openspec init
+Let OpenSpec analyze your directory and append its native marker blocks and skills. It will seamlessly interlace its workflow requirements without touching your style guidelines.
+
+3. Migrate custom rules to openspec/project.md (Optional but Recommended)
+Over time, the cleanest architecture is to let OpenSpec be the single source of truth for the AI. OpenSpec creates a file called openspec/project.md (sometimes called the repository "Constitution").
+
+If you want an incredibly clean root directory, you can take your custom coding style guidelines and move them into openspec/project.md. Because OpenSpec strictly forces Claude to read the /openspec directory at the start of every loop, Claude will respect your custom rules perfectly, leaving your root CLAUDE.md short, sweet, and focused purely on environment commands.  
+
+
 
 
