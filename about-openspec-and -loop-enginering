@@ -311,13 +311,24 @@ Step 1: Explore & Onboard (First-time run)Before coding in a brownfield reposito
 ```  
 The AI agent will map your existing files, identify your endpoints, and present options to you.  
 
+
+Step 2: Propose the Change when you are ready to write a new feature (such as a new POST endpoint for handling requests), initiate a structured proposal:  
+   * What OpenSpec does: It creates a dedicated folder in openspec/changes/<timestamp>_add_stripe_webhooks/ containing proposal.md, design.md, and a strict tasks.md checklist.
+   * No code is written yet. You review the Markdown files. If they look perfect, you proceed.
+```plaintext
+/opsx:propose "Add a POST route to /api/v1/webhooks to process stripe events"
+* What OpenSpec does: It creates a dedicated folder in openspec/changes/<timestamp>_add_stripe_webhooks/ containing proposal.md, design.md, and a strict tasks.md checklist.
+* No code is written yet. You review the Markdown files. If they look perfect, you proceed.```
+
 Step 3: Apply with Optimized Token Loops
 Instruct your CLI assistant to execute the code:  
 ```plaintext
 /opsx:apply
 ```  
+* The Code Loop: The agent reads the exact task list from your local tasks.md and implements the POST request treatment step-by-step.
+* RTK in Action: Every time the agent runs a test to verify your POST route (e.g., npm run test or pytest), RTK intercepts the test suite's standard output. It strips out the passing verbose noise and feeds only the actionable line errors back to the LLM. This reduces log token consumption by up to 90%.
+* Caveman in Action: When Claude Code updates you on task progress, Caveman strips out the conversation fluff (e.g., "Certainly! I've written the Express router middleware and...") and writes back in ultra-lean, technical fragments.
 
 
-Step 2: Propose the Change when you are ready to write a new feature (such as a new POST endpoint for handling requests), initiate a structured proposal:  
-   * What OpenSpec does: It creates a dedicated folder in openspec/changes/<timestamp>_add_stripe_webhooks/ containing proposal.md, design.md, and a strict tasks.md checklist.
-   * No code is written yet. You review the Markdown files. If they look perfect, you proceed.
+
+
