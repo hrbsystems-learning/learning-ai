@@ -117,5 +117,25 @@ Over time, the cleanest architecture is to let OpenSpec be the single source of 
 If you want an incredibly clean root directory, you can take your custom coding style guidelines and move them into openspec/project.md. Because OpenSpec strictly forces Claude to read the /openspec directory at the start of every loop, Claude will respect your custom rules perfectly, leaving your root CLAUDE.md short, sweet, and focused purely on environment commands.  
 
 
+> OpenSpec takes care of the token economy too? Or do we need to add complementary resources such as RTK and Caveman skill?  
+
+OpenSpec handles input context token economics at an architectural level, but it serves a very different purpose than tools like RTK (Rust Token Killer) and the Caveman skill.
+
+They are highly complementary. To minimize costs, many developers stack OpenSpec together with these skills.
+
+The differences in how they tackle token optimization determine whether you should use them as complements.  
+
+1. What OpenSpec Handles Natively (The Input Loop)
+OpenSpec tackles the most expensive type of token drain: agentic amnesia and long-tail context bloat.
+  * Scope Reduction: Instead of your CLI agent parsing your entire repository over and over again during a loop, OpenSpec abstracts the work into isolated specifications (tasks.md and delta specs).
+  * Preventing "Loop Bleeding": The most common way agents burn through hundreds of dollars is by getting stuck in an error loop (e.g., fixing a bug, causing another bug, reverting, etc.). By using strict verification blocks, OpenSpec stops the loop early if a task fails validation, saving you thousands of wasted iteration tokens.
+
+OpenSpec optimizes intent and state memory, ensuring you spend your input tokens purely on focused execution.
+
+2. Why You Need Complementary Tools (RTK & Caveman)
+While OpenSpec manages the structural flow, it does not compress raw command-line outputs or force the model to be linguistically brief. This is where RTK and Caveman act as specialized plug-ins:  
+
+
+
 
 
