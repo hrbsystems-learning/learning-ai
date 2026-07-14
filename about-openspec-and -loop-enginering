@@ -225,5 +225,32 @@ Input Logs & Terminal     RTK            Transparently filters and compresses te
 Conversational Output     Caveman        SkillStrips chatty explanations and filler text from the LLM’s responses while keeping code and logic exact.     ~65% output savings  
 
 
+Phase 1: Global Tool Setup
+Before touching your repositories, install the necessary global command-line utilities.
+
+1. Install OpenSpec Globally
+Requires Node.js 20.19.0 or higher:  
+```bash
+npm install -g @fission-ai/openspec@latest  
+```  
+2. Install RTK (Rust Token Killer) Globally
+RTK is a single compiled Rust binary with no external dependencies:  
+   * mac/linux:
+   ```bash
+    curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
+   ```  
+   * Windows (PowerShell):  
+   ```powershell
+    winget install rtk-ai.rtk
+   ```  
+Verify the installation by running rtk --version.
+
+3. Install the Caveman Plugin Globally
+If using Claude Code, install the native Caveman plugin directly:  
+```bash
+ npx claudepluginhub juliusbrussee/caveman --plugin caveman
+```  
+
+
 
 
