@@ -215,7 +215,13 @@ To evolve your pre-existing projects securely without breaking your existing cod
 
 This comprehensive, step-by-step document details how to upgrade all your GitHub repositories to this modern AI-native pipeline.  
 
-### The OpenSpec + Token Economy Stack
+### The OpenSpec + Token Economy Stack  
 
+By stacking these tools, you optimize every angle of the developer token lifecycle:  
+
+Layer                     Tool           Function                                                                                                         Typical Token Savings  
+Orchestration & State     OpenSpec       prevents "loop bleeding" and agentic amnesia by keeping step-by-step specifications on disk.                     Prevents infinite loop waste  
+Input Logs & Terminal     RTK            Transparently filters and compresses terminal command outputs (git, npm, test suites, lints).                    60% to 90% input savings  
+Conversational Output     Caveman        SkillStrips chatty explanations and filler text from the LLM’s responses while keeping code and logic exact.     ~65% output savings
 
 
