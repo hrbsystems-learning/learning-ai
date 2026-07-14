@@ -143,7 +143,17 @@ While OpenSpec manages the structural flow, it does not compress raw command-lin
    * What it does: It optimizes output tokens by stripping out pleasantries, hedging, and conversational fluff ("Sure! I can help you with that..."), forcing Claude to reply in ultra-concise fragments while preserving exact code and technical terms.  
    * Why pair it with OpenSpec: OpenSpec doesn't stop Claude from being overly polite or chatty when summarizing what it did. Caveman forces the output to be minimal, which drastically cuts down on the generation cost during long sessions.  
 
+The Verdict: The Ultimate Loop Stack
 
+For the absolute tightest token economy in Claude Code or OpenCode, the community favorite workflow is to combine them:
+
+1. OpenSpec: Manages the architectural state and keeps the agent from losing its mind or looping blindly.
+
+2. RTK: Shrinks the logs and terminal data fed into the /opsx loop execution.
+
+3. Caveman: Shrinks the words Claude uses to talk back to you.  
+
+You can watch the Caveman Token Optimization Guide to see how reducing conversational fluff cuts down on Claude Code output tokens without impacting technical accuracy.
 
 
 
