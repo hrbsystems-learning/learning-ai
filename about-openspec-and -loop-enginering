@@ -155,6 +155,24 @@ For the absolute tightest token economy in Claude Code or OpenCode, the communit
 
 You can watch the Caveman Token Optimization Guide to see how reducing conversational fluff cuts down on Claude Code output tokens without impacting technical accuracy.
 
+> It is reliable to add openspec in a previous project that doesn't use openspec initially. Can I, from this moment on pass to use openspec to evolve the project?  
+
+
+Yes, it is highly reliable. In fact, OpenSpec's philosophy was explicitly built to handle "brownfield" (pre-existing) codebases just as fluidly as brand-new ones. You do not need to pause your project or manually write documentation for your entire historical codebase before you start.
+
+You can safely initialize OpenSpec right now and use it to evolve your project moving forward.  
+
+1. How OpenSpec Handles Pre-Existing Projects Natively:
+   The entire framework relies on a concept called Delta Specs.
+   When you want to add a new feature to your old project, OpenSpec doesn't need a complete manual of your whole system. It only maps out what is changing right now.
+   Even better, OpenSpec has a built-in onboarding feature explicitly for this scenario:  
+   ```bash
+   # Inside your existing tool (e.g., Claude Code), run:
+   /opsx:onboard  
+   ```  
+   What /opsx:onboard does:
+   Instead of you having to document the past, the AI will use this skill to run a preflight scan of your existing codebase. It will automatically reverse-engineer your code, learn your tech stack, figure out your folder structure, and generate your core global repository context (project.md) for you.  
+
 
 
 
