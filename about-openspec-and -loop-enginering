@@ -251,6 +251,16 @@ If using Claude Code, install the native Caveman plugin directly:
  npx claudepluginhub juliusbrussee/caveman --plugin caveman
 ```  
 
+Phase 2: Upgrading a Pre-Existing Repository
+For every existing repository on your machine, perform this clean initialization sequence.  
+
+Step 1: Secure Your Existing Configurations
+Do not delete your old configurations. If you have custom system rules in CLAUDE.md or agents.md (optimized for agy or amp), temporarily preserve them:  
+```bash
+cp CLAUDE.md CLAUDE.original.md 2>/dev/null || true
+cp agents.md agents.original.md 2>/dev/null || true
+```  
+
 
 
 
