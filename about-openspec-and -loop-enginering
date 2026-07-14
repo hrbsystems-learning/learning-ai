@@ -334,6 +334,9 @@ Once the code compiles and tests pass, finalize the session:
 ```plaintext
 /opsx:archive
 ```  
+OpenSpec will move the proposal files to the openspec/archive/ folder, update your long-term specs in openspec/specs/, and provide a highly compressed git commit message using rtk git commit and /caveman-commit.  
+
+
 
 
 
