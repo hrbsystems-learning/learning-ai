@@ -286,8 +286,23 @@ This file acts as your project's single source of truth. Your CLAUDE.md and agen
 
 
 
+Phase 3: The "Continuous Evolution" Workflow
+With OpenSpec, RTK, and Caveman configured, you can begin evolving your projects. Use this exact workflow for new features, bug fixes, or handling POST request integrations.  
 
-
-
+                  ┌─────────────────────────────────────┐
+                  │          /opsx:explore              │  <-- Brainstorming
+                  └──────────────────┬──────────────────┘
+                                     ▼
+                  ┌─────────────────────────────────────┐
+                  │          /opsx:propose              │  <-- Creates Spec + tasks.md
+                  └──────────────────┬──────────────────┘
+                                     ▼
+                  ┌─────────────────────────────────────┐
+                  │           /opsx:apply               │  <-- RTK + Caveman actively
+                  └──────────────────┬──────────────────┘      execute code loops
+                                     ▼
+                  ┌─────────────────────────────────────┐
+                  │          /opsx:archive              │  <-- Locks specs to git
+                  └─────────────────────────────────────┘
 
 
