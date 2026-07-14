@@ -266,6 +266,11 @@ Navigate to your repository and run:
 ```bash
 openspec init
 ```  
+This command creates the /openspec configuration directory. It will detect your repository structure,  
+detect your CLI tools, and insert their safely marked operational blocks inside your root configuration files without destroying your pre-existing instructions.  
+
+
+
 
 
 
