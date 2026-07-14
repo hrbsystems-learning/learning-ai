@@ -193,6 +193,7 @@ Because the AI doesn't know your old code perfectly yet, do not rush straight in
 ```plaintext
 > /opsx:explore "Add a JWT refresh token mechanism to our old auth router"
 ```  
+The agent will actively crawl your existing files, ask you probing questions about how your old code works, point out architectural quirks, and work with you until the implementation plan is fully locked down.  
 
 
 
