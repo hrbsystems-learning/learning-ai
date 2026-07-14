@@ -269,6 +269,18 @@ openspec init
 This command creates the /openspec configuration directory. It will detect your repository structure,  
 detect your CLI tools, and insert their safely marked operational blocks inside your root configuration files without destroying your pre-existing instructions.  
 
+Step 3: Inject the Global RTK and Caveman Hooks
+To make these efficiency tools transparently activate whenever your agents (Claude Code, agy, amp) execute commands, initialize their local environments:  
+```bash
+# 1. Install RTK's global agent shell hook
+rtk init -g
+
+# 2. Drop the persistent caveman activation rule into the repo
+npx caveman-init
+```  
+Note: Once rtk init -g is executed, it installs a hook that automatically intercepts terminal execution inside Claude Code, agy, and amp, wrapping command execution with rtk (e.g., automatically executing rtk git status or rtk npm test).  
+
+
 
 
 
