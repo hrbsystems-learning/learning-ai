@@ -195,7 +195,17 @@ Because the AI doesn't know your old code perfectly yet, do not rush straight in
 ```  
 The agent will actively crawl your existing files, ask you probing questions about how your old code works, point out architectural quirks, and work with you until the implementation plan is fully locked down.  
 
+Step 3: Propose, Apply, and Archive
+Once you and the AI agree on the plan, let the standard OpenSpec loop take over:
+
+/opsx:propose creates the new isolated change folder containing tasks.md, design.md, and the spec delta.
+
+/opsx:apply forces Claude Code to strictly execute and check off the tasks inside your old codebase.
+
+/opsx:archive completes the task, moving the logs to your archive and automatically building up your openspec/specs/ directory.
 
 
+The Long-Term Benefit: Natural Evolution:  
+By taking this approach, your documentation grows organically with your code. You don't waste days writing specs for features you aren't touching. Every time you use the /opsx loop to fix a bug or add a route, OpenSpec captures that small piece of the puzzle. Over a few weeks, your legacy project naturally builds a comprehensive, pixel-perfect specification library that keeps future AI agents completely aligned.  
 
 
