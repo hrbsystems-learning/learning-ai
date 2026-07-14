@@ -188,4 +188,13 @@ openspec init
 > /opsx:onboard
 ```  
 
+Step 2: Use "Explore Mode" for your first new feature
+Because the AI doesn't know your old code perfectly yet, do not rush straight into coding. Start with Explore Mode, which acts as a no-stakes brainstorming partner:  
+```plaintext
+> /opsx:explore "Add a JWT refresh token mechanism to our old auth router"
+```  
+
+
+
+
 
