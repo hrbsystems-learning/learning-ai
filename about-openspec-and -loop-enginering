@@ -173,6 +173,19 @@ You can safely initialize OpenSpec right now and use it to evolve your project m
    What /opsx:onboard does:
    Instead of you having to document the past, the AI will use this skill to run a preflight scan of your existing codebase. It will automatically reverse-engineer your code, learn your tech stack, figure out your folder structure, and generate your core global repository context (project.md) for you.  
 
+2. The Step-by-Step Way to Evolve Your Project From Today
+To safely transition your legacy project into the OpenSpec workflow, use this frictionless, step-by-step strategy:
 
+Step 1: Initialize and Onboard
+Run the initialization in your project root and let the AI map out your current state.
+```bash
+npm install -g @fission-ai/openspec@latest
+cd your-existing-project
+openspec init  
+```  
+(Now open Claude Code or your preferred assistant)  
+```bash
+> /opsx:onboard
+```  
 
 
