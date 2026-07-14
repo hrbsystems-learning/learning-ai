@@ -280,6 +280,11 @@ npx caveman-init
 ```  
 Note: Once rtk init -g is executed, it installs a hook that automatically intercepts terminal execution inside Claude Code, agy, and amp, wrapping command execution with rtk (e.g., automatically executing rtk git status or rtk npm test).  
 
+Step 4: Consolidate Rules into openspec/project.md to keep your root directory clean and ensure all 3 assistants (agy, amp, and Claude Code) read the exact same instructions,  
+Merge your old custom guidelines from CLAUDE.original.md and agents.original.md directly into the newly generated openspec/project.md file.  
+This file acts as your project's single source of truth. Your CLAUDE.md and agents.md can remain minimal, containing only base environmental context and directing the LLMs to read openspec/project.md.  
+
+
 
 
 
