@@ -135,6 +135,15 @@ OpenSpec optimizes intent and state memory, ensuring you spend your input tokens
 2. Why You Need Complementary Tools (RTK & Caveman)
 While OpenSpec manages the structural flow, it does not compress raw command-line outputs or force the model to be linguistically brief. This is where RTK and Caveman act as specialized plug-ins:  
 
+🛠️ RTK (Rust Token Killer): 
+   * What it does: It intercepts noisy terminal command outputs (like a giant verbose test suite runner, NPM logs, or grep dumps) and strips out the noise, sending only the actionable failures to the AI.  
+   * Why pair it with OpenSpec: During the /opsx:apply phase, OpenSpec forces the agent to execute tests and lint commands. Pairing it with RTK ensures that when OpenSpec runs a test command, the agent isn't flooded with 100,000 tokens of passing logs.
+
+🪨 Caveman Skill: 
+   * What it does: It optimizes output tokens by stripping out pleasantries, hedging, and conversational fluff ("Sure! I can help you with that..."), forcing Claude to reply in ultra-concise fragments while preserving exact code and technical terms.  
+   * Why pair it with OpenSpec: OpenSpec doesn't stop Claude from being overly polite or chatty when summarizing what it did. Caveman forces the output to be minimal, which drastically cuts down on the generation cost during long sessions.  
+
+
 
 
 
