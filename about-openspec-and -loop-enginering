@@ -261,6 +261,11 @@ cp CLAUDE.md CLAUDE.original.md 2>/dev/null || true
 cp agents.md agents.original.md 2>/dev/null || true
 ```  
 
+Step 2: Initialize OpenSpec
+Navigate to your repository and run:  
+```bash
+openspec init
+```  
 
 
 
