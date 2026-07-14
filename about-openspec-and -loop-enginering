@@ -329,6 +329,11 @@ Instruct your CLI assistant to execute the code:
 * RTK in Action: Every time the agent runs a test to verify your POST route (e.g., npm run test or pytest), RTK intercepts the test suite's standard output. It strips out the passing verbose noise and feeds only the actionable line errors back to the LLM. This reduces log token consumption by up to 90%.
 * Caveman in Action: When Claude Code updates you on task progress, Caveman strips out the conversation fluff (e.g., "Certainly! I've written the Express router middleware and...") and writes back in ultra-lean, technical fragments.
 
+Step 4: Archive and Commit
+Once the code compiles and tests pass, finalize the session:  
+```plaintext
+/opsx:archive
+```  
 
 
 
