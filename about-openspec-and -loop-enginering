@@ -305,4 +305,8 @@ With OpenSpec, RTK, and Caveman configured, you can begin evolving your projects
                   │          /opsx:archive              │  <-- Locks specs to git
                   └─────────────────────────────────────┘
 
+Step 1: Explore & Onboard (First-time run)Before coding in a brownfield repository, run a no-stakes preflight scan. Open your terminal assistant (agy, amp, or Claude Code) and run:  
+```plaintext
+/opsx:explore "Analyze our current HTTP routes and show how we should handle incoming webhooks"  
+```  
 
