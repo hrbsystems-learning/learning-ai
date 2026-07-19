@@ -410,3 +410,18 @@ The OpenSpec Phase Matrix:
 5. The Finalization Phase: /opsx:archive🏆 Best Choice: The OpenSpec Terminal CLI (openspec archive)
    Why: Don't waste your LLM tokens or wait on chat autocomplete for the final file cleanup! While you can use an AI assistant for this, the native OpenSpec terminal command compiles delta specs and moves folders in milliseconds with perfect precision.  
 
+💡 The Ultimate "Power-User" Combo
+If you want to maximize efficiency using the multi-assistant approach we discussed, the perfect pipeline looks like this:
+
+[Claude Code] ───> [Cursor/Windsurf] ───> [OpenSpec CLI]
+  Propose & Design       Apply & Implement         Validate & Archive
+  (High Reasoning)       (Fast Execution)          (Instant & Free)
+  
+Draft with Claude Code: Use /opsx:propose to generate an incredibly smart, bulletproof blueprint.
+
+Build with Windsurf/Cursor: Switch to a fast-execution editor, type /opsx-apply, and watch the agent crush the coding tasks.
+
+Close with the Terminal: Run openspec archive to cleanly file it away.
+
+---   
+
