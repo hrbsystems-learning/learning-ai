@@ -373,4 +373,17 @@ Because OpenSpec treats the file system as the single source of truth, you can s
 
 3. The Polish: You notice a tricky frontend bug during the build, so you open Cursor or GitHub Copilot, read the existing context, fix it up, and run /opsx:verify to ensure everything matches your specifications.
 
+Three Simple Ground Rules for a Single Worktree
+To keep this swapping seamless, just follow these three quick rules:
+
+Rule 1: Close the previous tool's session. Make sure you fully exit or stop the active terminal process of Assistant A before opening Assistant B. This prevents two models from fighting over file-write locks or caching outdated file states in their active memory.
+
+Rule 2: Let the new tool read the context first. When you switch assistants, your very first prompt to the new tool should always be something like:
+
+"Please read the active change directory under openspec/changes/ to see our current objective and task list progress."
+
+Rule 3: Keep your project files refreshed. If you change models or profiles, quickly run openspec update via your system terminal. This ensures that the framework refreshes any IDE-specific prompt constraints or skills configuration files so the incoming assistant instantly understands your OpenSpec layout.
+
+This approach gives you the ultimate flexibility: you can use a high-reasoning model (like Claude 3.7 Sonnet) for the complex architectural planning phase, a fast/cheap model for writing repetitive boilerplate code, and a highly specialized code-review model for the final verification!  
+
 
