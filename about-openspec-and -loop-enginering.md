@@ -351,8 +351,26 @@ Because these tools operate on completely different layers of the development st
 The Takeaway: Use rtk gain to make sure your terminal stream compressor is active and actively filtering out shell noise.  
 For everything else, your API dashboard or the CLI session summaries will show you the real-world, combined dollar impact of your highly optimized "loop" setup.  
 
+> If I use 1 CLI Assistant at a time, in the same worktree. Does it work well too?
+
+Yes, it works beautifully. In fact, using one AI assistant at a time within the same working directory is the core, intended way OpenSpec was built to be used.
+
+Because OpenSpec saves the entire state of your development cycle directly into plain Markdown files (proposal.md, tasks.md, etc.), your project becomes a collaborative relay race. You can hand off the baton from one AI model to another effortlessly.
+
+The Hand-Off Blueprint
+Because OpenSpec treats the file system as the single source of truth, you can swap tools mid-stream without losing an inch of progress:
 
 
+[Claude Code]             [Kimi or Amp]              [Codex or Cursor]
+  Starts Task               Picks up Task              Verifies & Closes
+  /opsx:propose      ──>    /opsx:apply         ──>    /opsx:verify & /opsx:archive
+  (Writes tasks.md)         (Checks off tasks)         (Validates & merges specs)
 
+  Example Workflow:
+1. The Brainstorm: You open Claude Code and run /opsx:propose to design a complex backend feature. Claude creates the openspec/changes/feature-xyz/ folder, maps out the architecture in proposal.md, and lists the implementation steps in tasks.md. You close Claude Code.
+
+2. The Heavy Lifting: You open Amp or Kimi in that same folder. Because they can read the newly created tasks.md, you can simply tell them: "Look at the active OpenSpec change and execute the next 3 tasks." They will write the code and check off the Markdown boxes.
+
+3. The Polish: You notice a tricky frontend bug during the build, so you open Cursor or GitHub Copilot, read the existing context, fix it up, and run /opsx:verify to ensure everything matches your specifications.
 
 
