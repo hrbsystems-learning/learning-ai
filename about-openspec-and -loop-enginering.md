@@ -384,6 +384,29 @@ Rule 2: Let the new tool read the context first. When you switch assistants, you
 
 Rule 3: Keep your project files refreshed. If you change models or profiles, quickly run openspec update via your system terminal. This ensures that the framework refreshes any IDE-specific prompt constraints or skills configuration files so the incoming assistant instantly understands your OpenSpec layout.
 
+
 This approach gives you the ultimate flexibility: you can use a high-reasoning model (like Claude 3.7 Sonnet) for the complex architectural planning phase, a fast/cheap model for writing repetitive boilerplate code, and a highly specialized code-review model for the final verification!  
 
+---  
+
+> So, what is the best CLI Assistant for each openspec action? Ex.: For onboard command, is the Claude Code better?
+
+Because OpenSpec is an open-source, file-system-driven standard, different AI assistants have dramatically different strengths depending on the phase of the development loop you are in.  Choosing the right assistant comes down to LLM reasoning depth vs. tool execution speed. High-reasoning models excel at planning and reviewing, while fast, agentic tools excel at editing.The definitive breakdown of which CLI Assistant rules each OpenSpec action includes the following recommendations:  
+
+The OpenSpec Phase Matrix:  
+
+1.  The Setup Phase: /opsx:onboard🏆 Best Choice: Claude Code (using Claude 3.7 Sonnet)  
+    Why: You nailed it—Claude Code is undisputed here. The onboard command requires an assistant that can perform static analysis on a codebase it has never seen, identify safe, minor    architectural gaps (like missing documentation or hidden typos), and then articulate to you why it chose that issue. Sonnet’s elite reasoning power ensures it picks a high-value sandbox task rather than a random, disruptive one.
+
+2. The Architecture Phase: /opsx:explore & /opsx:propose🏆 Best Choice: Cursor (Agent Mode) or Claude Code.
+  Why: This phase writes a proposal.md, design.md, and tasks.md. It is entirely abstract thinking.  Claude Code is exceptional if you want deeply rigorous technical designs and incredibly thorough implementation checklists.Cursor (with Claude 3.7 or GPT-4o) is a close tie because it allows you to easily attach local context files (@docs, @folder) right inside the chat window while the proposal is being generated.
+
+3. The Execution Phase: /opsx:apply🏆 Best Choice: Amp (Sourcegraph) or Windsurf
+   Why: This is where the magic happens, but it’s also where slow models stall out. You are no longer planning; you are following a strict checklist (tasks.md) line-by-line.  Amp and Windsurf are built on highly optimized, hyper-fast agentic code-editing loops. They parse file trees rapidly, inject code with minimal latency, and check off the Markdown task boxes faster than Claude Code, which often over-analyzes simple boilerplate tasks.
+
+4. The Verification Phase: /opsx:verify🏆 Best Choice: Kimi CLI or GitHub Copilot
+   Why: In the verification step, the AI reads your implementation and tests it against your spec requirements (effectively doing manual/automated compliance checking).Kimi is exceptionally adept at scanning massive text outputs and diffs for inconsistencies.GitHub Copilot is heavily integrated with your local test runner environment, making it great for running the actual test blocks and fixing the failures.
+
+5. The Finalization Phase: /opsx:archive🏆 Best Choice: The OpenSpec Terminal CLI (openspec archive)
+   Why: Don't waste your LLM tokens or wait on chat autocomplete for the final file cleanup! While you can use an AI assistant for this, the native OpenSpec terminal command compiles delta specs and moves folders in milliseconds with perfect precision.  
 
