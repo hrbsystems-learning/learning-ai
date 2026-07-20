@@ -424,4 +424,50 @@ Build with Windsurf/Cursor: Switch to a fast-execution editor, type /opsx-apply,
 Close with the Terminal: Run openspec archive to cleanly file it away.
 
 ---   
+> In my mono repo,  which one is better to use to run the onboard command? Claude Code, Amp CLI, or Antigravity CLI?
+For running /opsx:onboard specifically inside a monorepo with multiple workloads, Antigravity CLI is the clear winner, closely followed by Claude Code, while Amp CLI trails behind for this specific task.
 
+Here is the breakdown of how they compare for onboarding a monorepo structure.
+
+🏆 1. Google Antigravity CLI (Best for Monorepo Onboarding)
+Why it wins for onboard:
+
+Large Context Handling: A monorepo requires an AI tool to read dozens (or hundreds) of files across apps/, services/, and packages/. Antigravity's Gemini engine (1M+ token context window) can digest your entire monorepo layout without hitting token limits or truncating files.  
+Pinggy
+
+Parallel Sub-Agent Indexing: Instead of reading file-by-file sequentially, Antigravity spins up background sub-agents to scan apps/web, apps/api, and packages/shared simultaneously. It synthesizes these parallel scans into clean, domain-separated baseline files under openspec/specs/.
+
+Native Plan/Artifact Architecture: Antigravity natively structures its output as isolated artifacts. It respects OpenSpec’s rules and won't get "bored" halfway through a massive monorepo scan.
+
+🥈 2. Claude Code (Best for Architectural Depth & Granularity)
+Why it is a close second:
+
+Deep Cross-Workload Reasoning: While Claude Code's context window is tighter than Antigravity's, Claude 3.7 / Opus models excel at discovering complex code relationships. If your monorepo has intricate microservice dependencies (e.g., shared TypeScript types flowing from packages/ to apps/web), Claude Code will generate sharper GIVEN-WHEN-THEN specification logic.
+
+Where it struggles on onboard: Because it reads files more sequentially, onboarding a large monorepo with Claude Code can be slower and significantly more token-expensive. You may also need to manually guide it if it hits context limits while scanning a huge file tree.
+
+🥉 3. Amp CLI (Good for Execution, Weak for Broad Onboarding)
+Why it ranks third:
+
+Designed for Focused Tasks: Amp CLI relies on high-speed multi-model routing (auto-switching between GPT, Claude, and fast models). It is engineered primarily for fast, iterative code edits and single-thread execution tasks rather than deep, multi-directory repository mapping.  
+Amp Code
+
+Monorepo Friction: Amp CLI works best when given a explicit, targeted scope. When pointed at a giant monorepo for /opsx:onboard, its multi-model switcher can sometimes summarize too aggressively, producing specs under openspec/specs/ that miss key architectural details across smaller workloads.  
+Amp Code
+
+🎯 The Ideal Hybrid Strategy for Monorepos
+If you have access to these CLI tools, the recommended strategy is to mix and match their strengths across the OpenSpec lifecycle:
+
+Plaintext
+┌─────────────────────────┐       ┌─────────────────────────┐       ┌─────────────────────────┐
+│     /opsx:onboard       │  ───> │      /opsx:propose      │  ───> │       /opsx:apply       │
+│     (Antigravity)       │       │    (Claude or Antigravity)│       │    (Claude Code / Amp)  │
+└─────────────────────────┘       └─────────────────────────┘       └─────────────────────────┘
+  Reads giant file tree;             Structures clear specs            Executes precision code 
+  creates baseline specs.            & multi-workload tasks.           edits across packages.
+Run /opsx:onboard with Antigravity CLI: Let its massive context scan your entire monorepo (apps/, packages/, services/) to quickly build your baseline global specs (openspec/specs/{workload}-{capability}/spec.md).
+
+Run /opsx:propose and /opsx:apply with Claude Code or Amp CLI: Once the specs are established, use Claude Code or Amp for day-to-day coding tasks. Their file-level precision and reasoning make them exceptional at editing application code based on your finalized tasks.md checklist.
+
+
+ 
