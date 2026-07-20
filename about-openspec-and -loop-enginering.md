@@ -461,13 +461,67 @@ If you have access to these CLI tools, the recommended strategy is to mix and ma
 Plaintext
 ┌─────────────────────────┐       ┌─────────────────────────┐       ┌─────────────────────────┐
 │     /opsx:onboard       │  ───> │      /opsx:propose      │  ───> │       /opsx:apply       │
-│     (Antigravity)       │       │    (Claude or Antigravity)│       │    (Claude Code / Amp)  │
+│     (Antigravity)       │       │  (Claude or Antigravity)│       │    (Claude Code / Amp)  │
 └─────────────────────────┘       └─────────────────────────┘       └─────────────────────────┘
   Reads giant file tree;             Structures clear specs            Executes precision code 
   creates baseline specs.            & multi-workload tasks.           edits across packages.
 Run /opsx:onboard with Antigravity CLI: Let its massive context scan your entire monorepo (apps/, packages/, services/) to quickly build your baseline global specs (openspec/specs/{workload}-{capability}/spec.md).
 
-Run /opsx:propose and /opsx:apply with Claude Code or Amp CLI: Once the specs are established, use Claude Code or Amp for day-to-day coding tasks. Their file-level precision and reasoning make them exceptional at editing application code based on your finalized tasks.md checklist.
+Run /opsx:propose and /opsx:apply with Claude Code or Amp CLI: Once the specs are established, use Claude Code or Amp for day-to-day coding tasks. Their file-level precision and reasoning make them exceptional at editing application code based on your finalized tasks.md checklist.  
+
+---  
+
+> How to execute onboard in agy CLI?
+
+To execute the /opsx:onboard command using Antigravity CLI (agy), you need to ensure OpenSpec's expanded workflow is enabled and its Agent Skills are registered in your workspace.Because /opsx:onboard is an expanded OpenSpec feature, follow this exact step-by-step setup and execution sequence:Step 1: Ensure OpenSpec Profile is set to ExpandedBy default, OpenSpec initializes with the core profile (which only includes propose, explore, apply, sync, and archive). You must enable the expanded profile so the onboard skill is made available:  
+
+```bash
+# 1. Set profile to expanded (or custom)
+openspec config profile expanded
+
+# 2. Initialize OpenSpec and target the Antigravity tool engine
+openspec init . --tools antigravity
+```
+(If you already ran openspec init previously, run openspec update after changing the profile to sync the newly installed skills).
+
+Step 2: Trigger onboard via Antigravity CLI (agy)
+OpenSpec integrates with Antigravity by writing custom Agent Skills into your workspace. Depending on how you interact with the Antigravity engine, run the command in one of the following ways:
+
+Option A: Direct Interactive Slash Command (Recommended)
+Launch the agy interactive session inside your terminal and run the slash command:  
+
+```bash
+# Start your interactive session
+agy
+
+# Inside the agy prompt panel, run:
+/opsx:onboard
+```
+
+Option B: One-Liner Headless Command
+If you want to invoke agy directly from your bash/zsh shell without entering an interactive prompt loop:  
+
+```bash
+agy prompt "/opsx:onboard"
+```
+
+Step 3: What Happens During Execution
+When Antigravity receives /opsx:onboard, it triggers its multi-agent context engine:
+
+1. Preflight Check: agy checks for .openspec/ configuration.
+
+2. Directory & Workspace Scan: Antigravity scans your repository structure (such as /apps, /packages, or /src).
+
+3. Spec Generation: It reverse-engineers your existing codebase and writes your initial baseline system specs under openspec/specs/<domain>/spec.md.
+
+4. Verification: Run openspec validate once complete to confirm all generated specs match the OpenSpec schema.
+
+💡 Monorepo Tip: If you are running this inside a large monorepo, ensure agy has read access to your sub-folders. Antigravity will automatically use background sub-agents to map your workloads into domain-separated specs under openspec/specs/.
+
+---  
+
+
+
 
 
  
