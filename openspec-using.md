@@ -29,3 +29,23 @@ Cascading Alignment: If you change a high-level requirement in proposal.md, you 
 Execution Boundary: Think of apply as the point of no return where planning ends and code execution begins.  
 Taking five minutes to manually align your markdown documentation saves hours of fixing broken code later.  
 To help you get ready for the next step, would you like me to review your current markdown files for contradictions, or do you want to see the exact syntax for instructing the AI to regenerate your task list based on design updates?  
+
+> both
+
+1. How to Review Your Markdown Files for Contradictions:
+   When you manually inspect your files before running apply, check for conflicts across these three layers:
+   * Proposal vs. Design: Ensure that every business requirement in proposal.md maps to a technical solution in design.md. (e.g., If the proposal requires "real-time updates," the design must mention WebSockets or polling, not just standard HTTP endpoints).
+   * Design vs. Tasks: Cross-reference your architectural decisions with the implementation list. If design.md introduces a new database table or an environment variable, task.md must include explicit steps to run migrations or update config files.
+   * Scope Creep: Verify that task.md does not contain extra tasks or features that were never approved or outlined in proposal.md.
+
+2. Exact Syntax for AI-Assisted Updates:
+If you find discrepancies or want to inject new details, you can instruct the AI tool to align all files simultaneously. Use the following slash-command syntax in your chat window:
+```bash
+/opsx:propose --update "We need to switch the notification system from Email to SMS. Please update proposal.md, design.md, and rewrite task.md to ensure complete consistency."
+```
+Alternative File-Specific Targeting:  
+If you only want the AI to fix a specific file based on changes you manually made to another, target them explicitly:  
+```bash
+/opsx:propose --refine task.md "Adjust the tasks to match the new database schema I just wrote in design.md."
+```
+
