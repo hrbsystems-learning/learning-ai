@@ -27,7 +27,7 @@ hermes-iwcare-app/
 
 1. .env (Free Model Credentials)
 Set up your environment variables. Leave OPENAI_API_KEY and ANTHROPIC_API_KEY empty so Hermes routes solely through OpenRouter's free tier.
-
+```
 # Local Server Setup
 SERVER_PORT=:8080
 SHARED_WORKSPACE=/app/shared_workspace
@@ -80,6 +80,7 @@ provider_routing:
   sort: "price"             # Always prefer $0.00 endpoints
   allow_fallbacks: true     # Auto-fallback if a free model hits rate-limits
 ```
+
 
 
 
