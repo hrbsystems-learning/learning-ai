@@ -4,7 +4,7 @@ This updated workflow integrates OpenRouter's $0.00 / free model routing, SOLID 
 
 📁 System Layout
 Create a root project folder named hermes-iwcare-app with the following structure:  
-
+```text
 hermes-iwcare-app/
 ├── .env
 ├── docker-compose.yml
@@ -21,7 +21,7 @@ hermes-iwcare-app/
     │   └── whitelist.go     # Whitelist security proxy
     └── hermes/
         └── client.go        # Hermes client caller  
-
+```  
         
 ⚙️ Step 1: Configuration & Model Routing Setup:
 
